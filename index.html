@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCreator AI | Free Creator Tools</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff}
+header{padding:22px 16px;text-align:center;background:#111a30;border-bottom:1px solid #263451}
+header h1{margin:0;color:#8b9cff;font-size:28px}
+header p{color:#c5cbe0}
+main{max-width:850px;margin:auto;padding:20px}
+.hero{text-align:center;padding:28px 8px}
+.hero h2{font-size:30px;margin-bottom:10px}
+.hero p{color:#bac4dc;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:#151e33;padding:18px;border:1px solid #2b3958;border-radius:15px}
+.card h3{margin-top:0;color:#a7b4ff}
+label{display:block;margin:12px 0 7px}
+input,textarea,select{width:100%;padding:12px;border-radius:9px;border:1px solid #394766;background:#0b1224;color:white;font-size:15px}
+textarea{min-height:100px;resize:vertical}
+button{border:0;border-radius:9px;padding:12px 15px;background:#697cff;color:white;font-weight:bold;cursor:pointer;margin-top:12px}
+button:hover{opacity:.88}
+.output{white-space:pre-wrap;background:#0a1120;border-radius:8px;padding:12px;margin-top:12px;overflow-wrap:anywhere}
+footer{text-align:center;padding:24px;color:#aab4cc}
+.small{font-size:12px;color:#aab4cc}
+</style>
+</head>
+<body>
+<header>
+<h1>✨ SmartCreator AI</h1>
+<p>Simple, smart tools for content creators</p>
+</header>
+<main>
+<section class="hero">
+<h2>Create Better Content 🚀</h2>
+<p>Generate video ideas, YouTube titles, stories and AI image prompts — all in one place.</p>
+</section><div class="grid">
+<section class="card">
+<h3>🎬 Video Prompt Generator</h3>
+<label for="topic">Video idea</label>
+<input id="topic" placeholder="e.g. funny 3D vegetable story">
+<label for="style">Video style</label>
+<select id="style"><option>3D cartoon</option><option>Realistic cinematic</option><option>Funny animation</option><option>Mysterious story</option></select>
+<button onclick="makePrompt()">Generate Prompt</button>
+<div id="promptOut" class="output">Your prompt will appear here.</div>
+<button onclick="copyText('promptOut')">Copy Prompt</button>
+</section><section class="card">
+<h3>📺 YouTube Title Generator</h3>
+<label for="video">Video topic</label>
+<input id="video" placeholder="Enter your video topic">
+<button onclick="makeTitles()">Generate Titles</button>
+<div id="titleOut" class="output">Your titles will appear here.</div>
+<button onclick="copyText('titleOut')">Copy Titles</button>
+</section><section class="card">
+<h3>🥕 Story Idea Generator</h3>
+<label for="characters">Characters</label>
+<input id="characters" placeholder="e.g. naughty tomato and potato">
+<label for="language">Language</label>
+<select id="language"><option>Urdu</option><option>Hindi</option><option>English</option></select>
+<button onclick="makeStory()">Generate Story Idea</button>
+<div id="storyOut" class="output">Your story idea will appear here.</div>
+<button onclick="copyText('storyOut')">Copy Story</button>
+</section><section class="card">
+<h3>🖼️ AI Image Prompt Generator</h3>
+<label for="imageIdea">Image idea</label>
+<input id="imageIdea" placeholder="e.g. cute 3D carrot chef">
+<button onclick="makeImage()">Generate Image Prompt</button>
+<div id="imageOut" class="output">Your image prompt will appear here.</div>
+<button onclick="copyText('imageOut')">Copy Prompt</button>
+</section>
+</div>
+<p class="small">Note: These starter tools create prompts and ideas in your browser. They do not call an external AI service.</p>
+</main>
+<footer>© 2026 SmartCreator AI · Made for creators</footer>
+<script>
+function val(id){return document.getElementById(id).value.trim()}
+function put(id,text){document.getElementById(id).textContent=text}
+function makePrompt(){
+let t=val('topic')||'a funny vegetable adventure';
+put('promptOut',`Create a high-quality ${val('style')} video about ${t}. Keep every character visually consistent across all scenes. Use expressive characters, natural movement, clear dialogue, accurate lip-sync, colorful cinematic lighting and smooth transitions. Make the story entertaining and family-friendly.`);
+}
+function makeTitles(){
+let t=val('video')||'an exciting new video';
+put('titleOut',[`1. The Surprising Story of ${t}`,`2. What Happens When ${t}?`,`3. You Won't Expect This: ${t}`,`4. ${t} — A Fun New Adventure`,`5. The Most Interesting Thing About ${t}`].join('\\n'));
+}
+function makeStory(){
+let c=val('characters')||'a naughty tomato and a clever potato';
+let l=val('language');
+let text=l==='Urdu'?`${c} ek din gaon ke bazaar mein ek ajeeb chamakti hui cheez dekhte hain. Dono uska raaz jaanne nikalte hain, lekin har qadam par ek naya mazedaar surprise milta hai. Aakhir mein pata chalta hai ke asli raaz unki dosti mein chhupa tha.`:l==='Hindi'?`${c} एक दिन बाजार में एक रहस्यमयी चमकती चीज़ देखते हैं। वे उसका राज़ जानने निकलते हैं और रास्ते में मज़ेदार मुसीबतों का सामना करते हैं। अंत में उन्हें दोस्ती की असली ताकत समझ आती है।`:`${c} discover a mysterious glowing object in a village market. Their search leads to funny surprises, unexpected clues and a heartwarming friendship lesson.`;
+put('storyOut',text);
+}
+function makeImage(){
+let t=val('imageIdea')||'a cute 3D carrot chef';
+put('imageOut',`Create a detailed ${t} image, polished 3D animation style, expressive face, appealing colors, cinematic soft lighting, detailed textures, clean composition, sharp focus, high quality, family-friendly. Keep the subject centered and avoid text, logos and watermarks.`);
+}
+async function copyText(id){
+let text=document.getElementById(id).textContent;
+try{await navigator.clipboard.writeText(text);alert('Copied!')}catch(e){alert('Please select and copy the text manually.')}
+}
+</script>
+</body>
+  </html>
